@@ -1,8 +1,9 @@
 const { getRndInteger } = require("../utils");
+const { uuid } = require("uuidv4");
 
 class Player {
-  constructor(id, connection, name, code, admin = false) {
-    this.id = id;
+  constructor(connection, name, code, admin = false) {
+    this.id = uuid();
     this.connection = connection;
     this.name = name.trim() != "" ? name : "name_" + getRndInteger(1000, 9999);
     this.code = code;

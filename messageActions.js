@@ -1,15 +1,16 @@
 const RManager = require("./server/RoomsManager");
 const PlayerInstance = require("./server/Player");
+const Jokes = require("./games/jokes");
 const RoomsManager = new RManager();
 
-let Room = RoomsManager.newRoom();
-Room.code = "a";
-let Player = new PlayerInstance("1", null, "bot", "a", false);
-Room.addPlayer(Player);
+// let Room = RoomsManager.newRoom();
+// Room.code = "a";
+// let Player = new PlayerInstance("1", null, "bot", "a", false);
+// Room.addPlayer(Player);
 
-setTimeout(() => {
-  Room.startGame("jokes");
-}, 15000);
+// setTimeout(() => {
+//   Room.startGame("jokes");
+// }, 15000);
 
 class MessageActions {
   actions = {
@@ -22,13 +23,19 @@ class MessageActions {
     roomCreate(request, connection, message) {
       let Room = RoomsManager.newRoom();
       let Player = new PlayerInstance(
-        request.id,
         connection,
         message.name,
         Room.code,
         true
       );
       Room.addPlayer(Player);
+
+      let Player1 = new PlayerInstance(null, "bot1", message.name, false);
+      let Player2 = new PlayerInstance(null, "bot2", message.name, false);
+
+      Room.addPlayer(Player1);
+      Room.addPlayer(Player2);
+
       Player.send({ action: "ROOM_create" });
       Room.sendPlayersList();
     },
@@ -47,12 +54,7 @@ class MessageActions {
       let Room = RoomsManager.getRoom(message.code);
 
       if (Room) {
-        let Player = new PlayerInstance(
-          request.id,
-          connection,
-          message.name,
-          message.code
-        );
+        let Player = new PlayerInstance(connection, message.name, message.code);
         Room.addPlayer(Player);
         Player.send({ action: "ROOM_join" });
         Room.sendPlayersList();

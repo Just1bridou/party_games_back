@@ -1,3 +1,5 @@
+const Jokes = require("../games/jokes");
+
 class Room {
   constructor() {
     this.code = this.generateRoomToken();
@@ -37,7 +39,14 @@ class Room {
   }
 
   startGame(gameCode) {
-    this.send({ action: "START_GAME", game: gameCode });
+    switch (gameCode) {
+      case "jokes":
+        new Jokes(this.players, this);
+        break;
+
+      default:
+        break;
+    }
   }
 }
 
