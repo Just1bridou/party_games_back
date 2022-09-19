@@ -13,6 +13,10 @@ class Room {
     player.code = this.code;
   }
 
+  getPlayerByID(id) {
+    return this.players.find((player) => player.id == id);
+  }
+
   generateRoomToken() {
     var firstPart = (Math.random() * 46656) | 0;
     var secondPart = (Math.random() * 46656) | 0;
@@ -23,7 +27,7 @@ class Room {
 
   send(message) {
     this.players.forEach((player) => {
-      console.log("Send to " + player.name + " : " + JSON.stringify(message));
+      // console.log("Send to " + player.name + " : " + JSON.stringify(message));
       player.send(message);
     });
   }

@@ -30,11 +30,11 @@ class MessageActions {
       );
       Room.addPlayer(Player);
 
-      let Player1 = new PlayerInstance(null, "bot1", message.name, false);
-      let Player2 = new PlayerInstance(null, "bot2", message.name, false);
+      // let Player1 = new PlayerInstance(null, "bot1", message.name, false);
+      // let Player2 = new PlayerInstance(null, "bot2", message.name, false);
 
-      Room.addPlayer(Player1);
-      Room.addPlayer(Player2);
+      // Room.addPlayer(Player1);
+      // Room.addPlayer(Player2);
 
       Player.send({ action: "ROOM_create" });
       Room.sendPlayersList();
@@ -82,8 +82,10 @@ class MessageActions {
         case "jokes":
           switch (message.GAME_action) {
             case "switch":
-              console.log("switch");
-              Room.game.newSpeaker();
+              Room.game.newTurn();
+              break;
+            case "stopTurn":
+              Room.game.stopTurn(message);
               break;
           }
           break;
