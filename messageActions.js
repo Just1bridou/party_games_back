@@ -75,6 +75,20 @@ class MessageActions {
       let Room = RoomsManager.getRoom(message.ROOM_code);
       if (Room) Room.startGame(message.GAME_code);
     },
+    gameAction(message) {
+      let Room = RoomsManager.getRoom(message.ROOM_code);
+
+      switch (message.GAME_code) {
+        case "jokes":
+          switch (message.GAME_action) {
+            case "switch":
+              console.log("switch");
+              Room.game.newSpeaker();
+              break;
+          }
+          break;
+      }
+    },
   };
 
   getActions() {

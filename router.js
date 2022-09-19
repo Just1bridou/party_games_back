@@ -42,6 +42,10 @@ function openRoutes(wsServer) {
           console.log("WS: Start game");
           MessageActions.startGame(message);
           break;
+
+        case "GAME_ACTION":
+          MessageActions.gameAction(message);
+          break;
       }
     });
 

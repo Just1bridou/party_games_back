@@ -32,8 +32,13 @@ class Jokes {
   }
 
   newSpeaker() {
+    console.log("newSpeaker");
     let rdm = getRndInteger(0, this.players_remainer.length - 1);
     let speaker_player = this.players[rdm];
+
+    console.log(rdm);
+    console.log(speaker_player);
+    console.log("send");
 
     this.players.forEach((player) => {
       if (player == speaker_player) {
