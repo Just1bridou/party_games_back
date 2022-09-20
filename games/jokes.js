@@ -2,10 +2,11 @@ const { getRndInteger } = require("../utils");
 const lod_ = require("lodash");
 
 class Jokes {
-  constructor(players, room) {
+  constructor(players, room, options) {
     this.room = room;
     this.players = lod_.cloneDeep(players);
     this.players_remainer = [];
+    this.options = options;
     this.init();
   }
 
@@ -28,7 +29,7 @@ class Jokes {
       action: "START_GAME",
       code: this.room.code,
       game: "jokes",
-      data: { players: this.players },
+      data: { players: this.players, options: this.options },
     });
   }
 
@@ -60,7 +61,7 @@ class Jokes {
       action: "GAME_action",
       code: this.room.code,
       game: "jokes",
-      data: { action: "newTurn", players: this.players },
+      data: { action: "newTurn", players: this.players, options: this.options },
     });
   }
 
@@ -69,7 +70,7 @@ class Jokes {
       action: "GAME_action",
       code: this.room.code,
       game: "jokes",
-      data: { action: "stopTurn" },
+      data: { action: "stopTurn", options: this.options },
     });
 
     if (message.reason == "loose") {

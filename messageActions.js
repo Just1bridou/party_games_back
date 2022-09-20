@@ -30,11 +30,11 @@ class MessageActions {
       );
       Room.addPlayer(Player);
 
-      // let Player1 = new PlayerInstance(null, "bot1", message.name, false);
-      // let Player2 = new PlayerInstance(null, "bot2", message.name, false);
+      let Player1 = new PlayerInstance(null, "bot1", message.name, false);
+      let Player2 = new PlayerInstance(null, "bot2", message.name, false);
 
-      // Room.addPlayer(Player1);
-      // Room.addPlayer(Player2);
+      Room.addPlayer(Player1);
+      Room.addPlayer(Player2);
 
       Player.send({ action: "ROOM_create" });
       Room.sendPlayersList();
@@ -73,7 +73,7 @@ class MessageActions {
     },
     startGame(message) {
       let Room = RoomsManager.getRoom(message.ROOM_code);
-      if (Room) Room.startGame(message.GAME_code);
+      if (Room) Room.startGame(message.GAME_code, message.GAME_options);
     },
     gameAction(message) {
       let Room = RoomsManager.getRoom(message.ROOM_code);

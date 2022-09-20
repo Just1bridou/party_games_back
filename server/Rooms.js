@@ -42,10 +42,10 @@ class Room {
     });
   }
 
-  startGame(gameCode) {
+  startGame(gameCode, options) {
     switch (gameCode) {
       case "jokes":
-        let joke = new Jokes(this.players, this);
+        let joke = new Jokes(this.players, this, options);
         this.game = joke;
         break;
 
