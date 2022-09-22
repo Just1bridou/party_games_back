@@ -30,11 +30,11 @@ class MessageActions {
       );
       Room.addPlayer(Player);
 
-      let Player1 = new PlayerInstance(null, "Nicolas", message.name, false);
-      let Player2 = new PlayerInstance(null, "Simon", message.name, false);
+      // let Player1 = new PlayerInstance(null, "Nicolas", message.name, false);
+      // let Player2 = new PlayerInstance(null, "Simon", message.name, false);
 
-      Room.addPlayer(Player1);
-      Room.addPlayer(Player2);
+      // Room.addPlayer(Player1);
+      // Room.addPlayer(Player2);
 
       Player.send({ action: "ROOM_create" });
       Room.sendPlayersList();
