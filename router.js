@@ -1,5 +1,9 @@
 const messageActions = require("./messageActions");
 const { MessageActions } = require("./messageActions");
+const RManager = require("./server/RoomsManager");
+
+const RoomsManager = new RManager();
+const mActions = new messageActions(RoomsManager);
 
 function openRoutes(wsServer) {
   wsServer.on("request", function (request) {
@@ -25,33 +29,36 @@ function openRoutes(wsServer) {
       switch (message.action) {
         case "ROOM_create":
           console.log("WS: Create new room");
-          MessageActions.roomCreate(request, connection, message);
+          mActions.roomCreate(request, connection, message);
           break;
 
         case "ROOM_join":
           console.log("WS: Join room");
-          MessageActions.roomJoin(request, connection, message);
+          mActions.roomJoin(request, connection, message);
           break;
 
         case "refreshPlayersList":
           console.log("WS: Refresh players list");
-          MessageActions.refreshPlayersList(message);
+          mActions.refreshPlayersList(message);
           break;
 
         case "START_GAME":
           console.log("WS: Start game");
-          MessageActions.startGame(message);
+          mActions.startGame(message);
           break;
 
         case "GAME_ACTION":
-          MessageActions.gameAction(message);
+          mActions.gameAction(message);
           break;
       }
     });
 
-    connection.on("close", function (connection) {
+    connection.on("close", (evt) => {
       console.log("disconnected");
-      // TODO
+      let player = RoomsManager.getConnection(connection);
+      if (player) {
+        RoomsManager.garbageCollector(player.code);
+      }
     });
   });
 }

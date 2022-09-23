@@ -1,3 +1,4 @@
+const CardsPicker = require("../games/CardsPicker");
 const Jokes = require("../games/jokes");
 
 class Room {
@@ -47,6 +48,11 @@ class Room {
       case "jokes":
         let joke = new Jokes(this.players, this, options);
         this.game = joke;
+        break;
+
+      case "cards_picker":
+        let cardsPicker = new CardsPicker(this.players, this, options);
+        this.game = cardsPicker;
         break;
 
       default:

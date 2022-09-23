@@ -3,6 +3,24 @@ const RoomInstance = require("./Rooms");
 class RoomsManager {
   constructor() {
     this.rooms = [];
+    this.connections = [];
+  }
+
+  newConnection(connection, player) {
+    this.connections[connection] = player;
+  }
+
+  getConnection(connection) {
+    return this.connections[connection];
+  }
+
+  garbageCollector(code) {
+    let room = this.getRoom(code);
+    if (room) {
+      if (room.players.length === 0) {
+        this.rooms.splice(this.rooms.indexOf(room), 1);
+      }
+    }
   }
 
   newRoom() {
